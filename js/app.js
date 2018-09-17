@@ -61,7 +61,7 @@ score.textContent =attempts;
 var myTrys;
         
 
-var stopMe=false;
+// var stopMe=false;
 
 
 function begin(){
@@ -122,8 +122,8 @@ function Matching(AA,BB){
 
         // console.log("My my the match.");
         if (matchGame.length===16){
-        winner.textContent="Congrates! You Won";
-        stopMe=true;
+        winner.textContent="Congrates! You won, play again?";
+        // stopMe=true;
         clearInterval(finalTime);
         }
     }
@@ -174,17 +174,31 @@ restartMe.addEventListener('click',function(){
 
     faceDeck=shuffle(faceDeck);
     console.log(faceDeck);
+
+    //if user clicks a card with out attempting to match it and then clicks on reset button. This will remove the clicked card css and make it not shown or fipped
+    if (findAMatch.length!=0)
+    {
+        findAMatch[0].classList.remove('open','show','match','stopClick');
+
+        }
+
+    
     findAMatch=[];
     matchGame=[];
-    stopMe=false;
-    // clearInterval(finalTime);
-    seconds=0;
-    minutes=0;
-    clock;
-    begin(); // Will this be calling begin twice see line 94
+
+    clearInterval(finalTime);
+    resetTime()
+    winner.textContent="Matching Game";
+
 });
 
- 
+
+function resetTime() {
+  seconds=0;
+  minutes=0;
+  finalTime = setInterval(clock, 1000);
+}
+
 function myStars(movesAmount){
     var goal =document.querySelector('.stars');
     goal.innerHTML=``;
@@ -223,6 +237,8 @@ let clock = function clockTimer(){
             currentTime= theTimer.textContent=`Timer 0${minutes}:0${seconds}`;}
             else if(seconds=>10 && minutes<10){
             currentTime= theTimer.textContent=`Timer 0${minutes}:${seconds}`;}
+            else if(seconds<10 && minutes>10){
+            currentTime= theTimer.textContent=`Timer ${minutes}:0${seconds}`;}
             else{
             currentTime= theTimer.textContent=`Timer ${minutes}:${seconds}`;}
 
