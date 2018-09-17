@@ -18,3 +18,7 @@ For specific, detailed instructions, look at the project instructions in the [Ud
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Resources are as follows:
+https://www.youtube.com/watch?time_continue=8&v=G8J13lmApkQ
+https://matthewcranford.com/memory-game-walkthrough-part-6-the-clock/
