@@ -25,8 +25,8 @@ function shuffle(array) {
     return array;
 }
 
-// var array= [1,3,2,7,9];
-//  console.log(shuffle(array));
+// var array= [1,3,2,7,9]; //for testing
+//  console.log(shuffle(array)); //for testing
 var faceDeck=["fa fa-diamond","fa fa-diamond","fa fa-paper-plane-o","fa fa-paper-plane-o","fa fa-anchor","fa fa-anchor","fa fa-bolt","fa fa-bolt","fa fa-cube","fa fa-cube","fa fa-leaf","fa fa-leaf","fa fa-bicycle","fa fa-bicycle","fa fa-bomb","fa fa-bomb"];
 
 
@@ -49,7 +49,7 @@ var displayAllCards = document.querySelectorAll('.card');
 var findAMatch=[]; // will hold only 2 slots, in order to compare
 var matchGame =[]; // All 16 cards and keeps track of all matches
 
-var attempts =0; // keeps account of the number pairs of cards believeto be a match
+var attempts =0; // keeps account of the number pairs of cards believe to be a match
 
 //holds the two values of the cards that will be compared.
 var current;
@@ -59,9 +59,6 @@ var score =document.querySelector('.moves');
 score.textContent =attempts;
 
 var myTrys;
-        
-
-// var stopMe=false;
 
 
 function begin(){
@@ -120,21 +117,20 @@ function Matching(AA,BB){
         matchGame.push(before,current);
 
 
-        // console.log("My my the match.");
+        // console.log("My my the match."); //for testing
         if (matchGame.length===16){
         winner.textContent="Congrates! You won, play again?";
-        // stopMe=true;
         clearInterval(finalTime);
         }
     }
     else{
         letsPause(AA, BB)
-        // console.log("Does not match.");
+        // console.log("Does not match."); //for testing
     }
     findAMatch=[];
 }
 
-console.log(matchGame);
+console.log(matchGame); //for testing
 
 
 // Will allow viewer/gamer to view the mismatch cards before turning them over.
@@ -153,16 +149,15 @@ function updateMoves(){
 
     myTrys = document.querySelector('.moves').textContent;
 
-    console.log(attempts);
+    // console.log(attempts); //for testing
     myStars(myTrys);
 }
 
 var restartMe = document.querySelector(".restart");
 
 restartMe.addEventListener('click',function(){
-    //
 
-    console.log("Starting over");
+    // console.log("Starting over"); //for testing
 
     myStars(0);
     attempts=0;
@@ -175,7 +170,8 @@ restartMe.addEventListener('click',function(){
     faceDeck=shuffle(faceDeck);
     console.log(faceDeck);
 
-    //if user clicks a card with out attempting to match it and then clicks on reset button. This will remove the clicked card css and make it not shown or fipped
+    /**if user clicks a card with out attempting to match it and then clicks on reset button. This will remove the clicked card css and make it not shown or fipped
+    */
     if (findAMatch.length!=0)
     {
         findAMatch[0].classList.remove('open','show','match','stopClick');
