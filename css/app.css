@@ -107,3 +107,11 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.deck .card.stopClick{
+    pointer-events: none;
+}
+
+.deck .card.red{
+    background: red;
+}
