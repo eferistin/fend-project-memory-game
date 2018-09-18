@@ -36,15 +36,7 @@ console.log(faceDeck); // done for testing
 
 var gameSheet = document.querySelector(".deck");
 
-//create 16 cards
-for( var i=0; i<faceDeck.length; i++){
-    var makeCard = document.createElement("li");
-    makeCard.classList.add("card");
-    makeCard.innerHTML=`<i class="${faceDeck[i]}"></i>`
-    gameSheet.appendChild(makeCard);
-}
 
-var displayAllCards = document.querySelectorAll('.card');
 
 var findAMatch=[]; // will hold only 2 slots, in order to compare
 var matchGame =[]; // All 16 cards and keeps track of all matches
@@ -62,6 +54,16 @@ var myTrys;
 
 
 function begin(){
+
+    //create 16 cards
+    for( var i=0; i<faceDeck.length; i++){
+        var makeCard = document.createElement("li");
+        makeCard.classList.add("card");
+        makeCard.innerHTML=`<i class="${faceDeck[i]}"></i>`
+        gameSheet.appendChild(makeCard);
+    }
+
+    var displayAllCards = document.querySelectorAll('.card');
 
     for( var game=0; game<displayAllCards.length;game++){
     displayAllCards[game].addEventListener('click', function(){
@@ -81,7 +83,10 @@ function begin(){
 
             console.log(current.innerHTML);
             
+            //prevents the same card being click twice as a move increment.
+            if (before!=current){
             attempts+=1; //updates the attempts
+        }
             score.textContent =attempts; // displays it on screen
                
             }//end attempts score
@@ -95,6 +100,10 @@ function begin(){
 
 
 begin();
+
+function clearDeck() {
+  gameSheet.innerHTML = "";
+}
 
 //to simplify, avoid writing long codes
 var placeOne;
@@ -119,8 +128,17 @@ function Matching(AA,BB){
 
         // console.log("My my the match."); //for testing
         if (matchGame.length===16){
-        winner.textContent="Congrates! You won, play again?";
+        var winTime =`${minutes} minutes and ${seconds} seconds`;
+
         clearInterval(finalTime);
+
+        winner.textContent="Congrates! You won, play again?";
+        var newSpan = document.createElement('h4');
+        newSpan.textContent= `"It took you ${winTime} to finish the game. And you have ${totalStars} stars"`;
+        var winResult =document.querySelector('header').appendChild(newSpan);
+
+        // swal(newSpan) // Idk
+
         }
     }
     else{
@@ -167,8 +185,10 @@ restartMe.addEventListener('click',function(){
         gameElement.classList.remove('open','show','match','stopClick');
     });
 
+    clearDeck();
     faceDeck=shuffle(faceDeck);
     console.log(faceDeck);
+    begin();
 
     /**if user clicks a card with out attempting to match it and then clicks on reset button. This will remove the clicked card css and make it not shown or fipped
     */
@@ -185,7 +205,11 @@ restartMe.addEventListener('click',function(){
     clearInterval(finalTime);
     resetTime()
     winner.textContent="Matching Game";
+    var old_span = document.querySelector('h4');
+    old_span.textContent="";
+    document.querySelector('header').removeChild(old_span);
 
+    
 });
 
 
@@ -195,23 +219,28 @@ function resetTime() {
   finalTime = setInterval(clock, 1000);
 }
 
+var totalStars;
 function myStars(movesAmount){
     var goal =document.querySelector('.stars');
     goal.innerHTML=``;
+
     if (movesAmount < 19){
         goal.innerHTML=`<li><i class="fa fa-star"></i></li>
         <li><i class="fa fa-star"></i></li>
         <li><i class="fa fa-star"></i></li>`;
+        totalStars=3;
     }
     else if (movesAmount<25 && movesAmount>=19){
         // give it 2 stars
         goal.innerHTML=`<li><i class="fa fa-star"></i></li>
         <li><i class="fa fa-star"></i></li>
         <li>`;
+        totalStars=2;
     }
     else{
         //give it 1 start
         goal.innerHTML=`<li><i class="fa fa-star"></i>`;
+        totalStars=1;
     }
 
 }
